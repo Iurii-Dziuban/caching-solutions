@@ -21,7 +21,9 @@ public class TransactionDao {
     }
 
     @CachePut(cacheNames = "transactions", key = "#transaction.id")
-    public void saveWithCache(Transaction transaction) {
+    public void saveWithCache(Transaction transaction) throws InterruptedException {
+        // Emulate time for searching
+        Thread.sleep(3000);
         saveWithoutCache(transaction);
     }
 
@@ -31,6 +33,7 @@ public class TransactionDao {
 
     @Cacheable("transactions")
     public Transaction findByName(final String name) throws InterruptedException {
+        // Emulate time for searching
         Thread.sleep(3000);
         for (Transaction transaction : transactions) {
             if (name.equals(transaction.getName())) {
