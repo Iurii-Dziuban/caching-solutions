@@ -77,6 +77,21 @@
             <version>1</version>
         </dependency>
 
+        <!-- Lombok for code generation and simplification of source -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.16.10</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- Autovalue alternative for Lombok -->
+        <dependency>
+            <groupId>com.google.auto.value</groupId>
+            <artifactId>auto-value</artifactId>
+            <version>1.2</version>
+            <scope>provided</scope>
+        </dependency>
 
         <!-- log4j logger -->
         <dependency>
