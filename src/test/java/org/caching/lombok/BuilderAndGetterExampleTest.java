@@ -13,7 +13,7 @@ public class BuilderAndGetterExampleTest {
     public void test(){
         BuilderAndGetterExample.BuilderAndGetterExampleBuilder builder = BuilderAndGetterExample.builder();
         BuilderAndGetterExample iurii = builder.name("Iurii").age(26).occupation("Java Developer").occupation("Traveler").build();
-        Assert.assertEquals("iurii",iurii.getName());
+        Assert.assertEquals("Iurii",iurii.getName());
         Assert.assertEquals(26,iurii.getAge());
         Assert.assertEquals(2,iurii.getOccupations().size());
         Assert.assertTrue(iurii.getOccupations().contains("Java Developer"));
