@@ -1,5 +1,7 @@
-package org.caching.data;
+package org.caching.data.ehcache_dao;
 
+import org.caching.data.GeneralTransactionDao;
+import org.caching.data.value.Transaction;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
@@ -12,29 +14,32 @@ import java.util.List;
  * Created by iurii.dziuban on 06.09.2016.
  */
 @Repository
-public class TransactionDao {
+public class TransactionEhcacheDao implements GeneralTransactionDao {
 
     private final List<Transaction> transactions;
 
-    public TransactionDao() {
+    public TransactionEhcacheDao() {
         this.transactions = new ArrayList<Transaction>();
     }
 
-    @CachePut(cacheNames = "transactions", key = "#transaction.id")
+    @CachePut(cacheNames = "ehtransactions", key = "#transaction.id")
+    @Override
     public void saveWithCache(Transaction transaction) throws InterruptedException {
-        // Emulate time for searching
-        Thread.sleep(3000);
         saveWithoutCache(transaction);
     }
 
-    public void saveWithoutCache(Transaction transaction) {
+    @Override
+    public void saveWithoutCache(Transaction transaction) throws InterruptedException {
+        // Emulate time for saving
+        Thread.sleep(4000);
         transactions.add(transaction);
     }
 
-    @Cacheable("transactions")
+    @Cacheable("ehtransactions")
+    @Override
     public Transaction findByName(final String name) throws InterruptedException {
         // Emulate time for searching
-        Thread.sleep(3000);
+        Thread.sleep(4000);
         for (Transaction transaction : transactions) {
             if (name.equals(transaction.getName())) {
                 return transaction;
@@ -43,11 +48,13 @@ public class TransactionDao {
         return null;
     }
 
-    @CacheEvict(cacheNames = "transactions", key = "#transaction.id")
+    @CacheEvict(cacheNames = "ehtransactions", key = "#transaction.id")
+    @Override
     public void removeWithCache(Transaction transaction) {
         removeWithoutCache(transaction);
     }
 
+    @Override
     public void removeWithoutCache(Transaction transaction) {
         transactions.remove(transaction);
     }

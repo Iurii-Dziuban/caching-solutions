@@ -11,11 +11,12 @@ import org.springframework.context.annotation.Configuration;
  * Created by iurii.dziuban on 06.09.2016.
  */
 @Configuration
-@ComponentScan(basePackages = "org.caching.data")
+@ComponentScan(basePackages = {"org.caching.data.value", "org.caching.data.spring_dao"})
 @EnableCaching
 public class SpringCachingContext {
+
     @Bean
-    public CacheManager cacheManager() {
+    public CacheManager springCacheManager() {
         return new ConcurrentMapCacheManager();
     }
 }

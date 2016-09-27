@@ -3,4 +3,5 @@
              updateCheck="false" monitoring="autodetect"
              dynamicConfig="true">
     <cache name="transactions" maxBytesLocalHeap="50m" timeToLiveSeconds="100"/>
+    <cache name="ehtransactions" maxBytesLocalHeap="50m" timeToLiveSeconds="100"/>
 </ehcache>

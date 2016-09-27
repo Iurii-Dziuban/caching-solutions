@@ -1,14 +1,12 @@
 package org.caching;
 
-import org.caching.context.EhCacheApplicationContext;
-import org.caching.data.Transaction;
-import org.caching.data.TransactionDao;
+import org.caching.data.GeneralTransactionDao;
+import org.caching.data.value.Transaction;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.inject.Inject;
@@ -17,13 +15,12 @@ import javax.inject.Inject;
  * Created by iurii.dziuban on 06.09.2016.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = EhCacheApplicationContext.class)
 public abstract class AbstractTransactionDaoTest {
 
     private static final String TRANSACTION_NAME = "Iurii";
 
     @Inject
-    private TransactionDao transactionDao;
+    private GeneralTransactionDao transactionDao;
     private Transaction transaction;
 
     @Before
@@ -35,35 +32,64 @@ public abstract class AbstractTransactionDaoTest {
 
     @Test
     @DirtiesContext
-    public void shouldCachingAnnotationImprovePerformanceForFindMethod() throws InterruptedException {
+    public void shouldSaveWithoutCaching() throws InterruptedException {
+        long startTime = System.currentTimeMillis();
         transactionDao.saveWithoutCache(transaction);
+        long endTime = System.currentTimeMillis();
+        Assert.assertTrue(endTime - startTime > 2000);
+
+        startTime = System.currentTimeMillis();
+        transactionDao.saveWithoutCache(transaction);
+        endTime = System.currentTimeMillis();
+        Assert.assertTrue(endTime - startTime > 2000);
     }
 
     @Test
     @DirtiesContext
     public void shouldCachePutAnnotationImprovePerformanceForFindMethod() throws InterruptedException {
+        long startTime = System.currentTimeMillis();
         transactionDao.saveWithCache(transaction);
+        long endTime = System.currentTimeMillis();
+        Assert.assertTrue(endTime - startTime > 2000);
+
+        startTime = System.currentTimeMillis();
+        transactionDao.saveWithCache(transaction);
+        endTime = System.currentTimeMillis();
+        Assert.assertTrue(endTime - startTime > 2000);
     }
 
     @Test
     @DirtiesContext
-    public void shouldInvokeFindMethod() throws InterruptedException {
+    public void shouldFindTransaction() throws InterruptedException {
         transactionDao.saveWithCache(transaction);
+        long startTime = System.currentTimeMillis();
         Transaction foundTransaction = transactionDao.findByName(TRANSACTION_NAME);
+        long endTime = System.currentTimeMillis();
+
         Assert.assertEquals(TRANSACTION_NAME, foundTransaction.getName());
+        Assert.assertTrue(endTime - startTime > 2000);
     }
 
     @Test
-    public void shouldCacheEvictAnnotationImprovePerformanceForFindMethod() throws InterruptedException {
-        String secondtransactionName = "Michal";
-        Transaction secondTransaction = new Transaction();
-        secondTransaction.setName(secondtransactionName);
-        secondTransaction.setId(2);
+    @DirtiesContext
+    public void shouldNotFindTransaction() throws InterruptedException {
+        Transaction foundTransaction = transactionDao.findByName(TRANSACTION_NAME);
+        Assert.assertNull(foundTransaction);
+    }
 
+    @Test
+    public void shouldCacheEvictWorkProperly() throws InterruptedException {
         transactionDao.saveWithCache(transaction);
-        transactionDao.saveWithCache(secondTransaction);
+        long startTime = System.currentTimeMillis();
+        Transaction foundTransaction = transactionDao.findByName(TRANSACTION_NAME);
+        long endTime = System.currentTimeMillis();
+        Assert.assertTrue(endTime - startTime > 2000);
 
-        transactionDao.removeWithoutCache(transaction);
-        transactionDao.removeWithCache(secondTransaction);
+        transactionDao.removeWithCache(transaction);
+
+        startTime = System.currentTimeMillis();
+        foundTransaction = transactionDao.findByName(TRANSACTION_NAME);
+        endTime = System.currentTimeMillis();
+        Assert.assertTrue(endTime - startTime < 2000);
     }
 }

@@ -1,4 +1,4 @@
-package org.caching.data;
+package org.caching.data.value;
 
 /**
  * Created by iurii.dziuban on 13.07.2016.

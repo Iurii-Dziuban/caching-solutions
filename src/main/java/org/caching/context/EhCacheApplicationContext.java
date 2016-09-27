@@ -13,19 +13,26 @@ import org.springframework.core.io.ClassPathResource;
  * Created by iurii.dziuban on 06.09.2016.
  */
 @Configuration
-@ComponentScan(basePackages = "org.caching.data")
+@ComponentScan(basePackages = {"org.caching.data.value", "org.caching.data.ehcache_dao"})
 @EnableCaching
 public class EhCacheApplicationContext {
 
     @Bean
-    public EhCacheCacheManager cacheManager(CacheManager cacheManager) {
-        return new EhCacheCacheManager(cacheManager);
+    public CacheManager ehcacheManager() {
+        CacheManager cacheManager = new CacheManager();
+        return cacheManager;
+    }
+
+    @Bean
+    public EhCacheCacheManager ehCacheCacheManager(CacheManager ehcacheManager) {
+        return new EhCacheCacheManager(ehcacheManager);
     }
 
     @Bean
     public EhCacheManagerFactoryBean ehcache() {
         EhCacheManagerFactoryBean ehCacheFactoryBean = new EhCacheManagerFactoryBean();
         ehCacheFactoryBean.setConfigLocation(new ClassPathResource("ehcache.xml"));
+        ehCacheFactoryBean.setShared(true);
         return ehCacheFactoryBean;
     }
 
