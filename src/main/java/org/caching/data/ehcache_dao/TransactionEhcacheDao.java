@@ -1,5 +1,6 @@
 package org.caching.data.ehcache_dao;
 
+import net.sf.ehcache.CacheManager;
 import org.caching.data.GeneralTransactionDao;
 import org.caching.data.value.Transaction;
 import org.springframework.cache.annotation.CacheEvict;
@@ -48,9 +49,10 @@ public class TransactionEhcacheDao implements GeneralTransactionDao {
         return null;
     }
 
-    @CacheEvict(cacheNames = "ehtransactions", key = "#transaction.id")
+    @CacheEvict(cacheNames = "ehtransactions", key = "#transaction.id", beforeInvocation = true)
     @Override
     public void removeWithCache(Transaction transaction) {
+        CacheManager.getInstance().clearAll();
         removeWithoutCache(transaction);
     }
 

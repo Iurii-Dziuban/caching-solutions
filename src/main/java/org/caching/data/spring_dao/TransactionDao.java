@@ -2,6 +2,8 @@ package org.caching.data.spring_dao;
 
 import org.caching.data.GeneralTransactionDao;
 import org.caching.data.value.Transaction;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
@@ -15,6 +17,9 @@ import java.util.List;
  */
 @Repository
 public class TransactionDao implements GeneralTransactionDao{
+
+    @Autowired
+    private CacheManager cacheManager;
 
     private final List<Transaction> transactions;
 
@@ -48,9 +53,10 @@ public class TransactionDao implements GeneralTransactionDao{
         return null;
     }
 
-    @CacheEvict(cacheNames = "transactions", key = "#transaction.id")
+    @CacheEvict(cacheNames = "transactions", key = "#transaction.id", beforeInvocation = true)
     @Override
     public void removeWithCache(Transaction transaction) {
+        cacheManager.getCache("transactions").clear();
         removeWithoutCache(transaction);
     }
 

@@ -90,6 +90,6 @@ public abstract class AbstractTransactionDaoTest {
         startTime = System.currentTimeMillis();
         foundTransaction = transactionDao.findByName(TRANSACTION_NAME);
         endTime = System.currentTimeMillis();
-        Assert.assertTrue(endTime - startTime < 2000);
+        Assert.assertTrue(endTime - startTime > 2000);
     }
 }
