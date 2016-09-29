@@ -1,8 +1,6 @@
 package org.caching.data.lombok;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Singular;
+import lombok.*;
 
 import java.util.Set;
 
@@ -10,7 +8,9 @@ import java.util.Set;
  * Created by iurii.dziuban on 26.09.2016.
  */
 @Builder
-@Getter
+@Getter(AccessLevel.PUBLIC)
+@ToString(exclude = "occupations")
+@EqualsAndHashCode(of = {"name", "age"})
 public class BuilderAndGetterExample {
     private String name;
     private int age;
