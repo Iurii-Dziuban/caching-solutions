@@ -12,7 +12,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <org.springframework.version>4.3.2.RELEASE</org.springframework.version>
+        <org.springframework.version>4.3.3.RELEASE</org.springframework.version>
     </properties>
 
     <scm>
@@ -188,26 +188,6 @@
             </plugin>
 
             <plugin>
-                <groupId>org.jacoco</groupId>
-                <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.7.7.201606060606</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>prepare-agent</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>report</id>
-                        <phase>test</phase>
-                        <goals>
-                            <goal>report</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-
-            <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>cobertura-maven-plugin</artifactId>
                 <version>2.7</version>
@@ -216,6 +196,18 @@
                     <maxmem>256m</maxmem>
                     <!-- aggregated reports for multi-module projects -->
                     <aggregate>true</aggregate>
+                    <instrumentation>
+                        <ignores>
+                            <ignore>org.caching.data.autovalue.Transaction</ignore>
+                            <ignore>org.caching.data.autovalue.AutoValue_Transaction</ignore>
+                            <ignore>org.caching.data.lombok.LazyGetterSneakyThrowsExample</ignore>
+                            <ignore>org.caching.autovalue.AutoValueTest</ignore>
+                        </ignores>
+                        <excludes>
+                            <exclude>org/caching/data/autovalue/**.class</exclude>
+                            <exclude>org/caching/data/lombok/LazyGetterSneakyThrowsExample*</exclude>
+                        </excludes>
+                    </instrumentation>
                 </configuration>
             </plugin>
 
@@ -233,6 +225,12 @@
                 <groupId>org.eluder.coveralls</groupId>
                 <artifactId>coveralls-maven-plugin</artifactId>
                 <version>4.2.0</version>
+                <configuration>
+                    <repoToken>
+                        BcNho1JR9wtZ8yWGHbS5l1KqCC82YXE66
+                    </repoToken>
+                    <scanForSources>false</scanForSources>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>com.versioneye</groupId>
