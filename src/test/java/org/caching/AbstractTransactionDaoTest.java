@@ -1,7 +1,7 @@
 package org.caching;
 
 import org.caching.data.GeneralTransactionDao;
-import org.caching.data.value.Transaction;
+import org.caching.data.value.generated.Transaction;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -34,12 +34,12 @@ public abstract class AbstractTransactionDaoTest {
     @DirtiesContext
     public void shouldSaveWithoutCaching() throws InterruptedException {
         long startTime = System.currentTimeMillis();
-        transactionDao.saveWithoutCache(transaction);
+        transactionDao.saveWithoutCache(transaction.getName(), transaction);
         long endTime = System.currentTimeMillis();
         Assert.assertTrue(endTime - startTime > 2000);
 
         startTime = System.currentTimeMillis();
-        transactionDao.saveWithoutCache(transaction);
+        transactionDao.saveWithoutCache(transaction.getName(), transaction);
         endTime = System.currentTimeMillis();
         Assert.assertTrue(endTime - startTime > 2000);
     }
@@ -48,12 +48,12 @@ public abstract class AbstractTransactionDaoTest {
     @DirtiesContext
     public void shouldCachePutAnnotationImprovePerformanceForFindMethod() throws InterruptedException {
         long startTime = System.currentTimeMillis();
-        transactionDao.saveWithCache(transaction);
+        transactionDao.saveWithCache(transaction.getName(), transaction);
         long endTime = System.currentTimeMillis();
         Assert.assertTrue(endTime - startTime > 2000);
 
         startTime = System.currentTimeMillis();
-        transactionDao.saveWithCache(transaction);
+        transactionDao.saveWithCache(transaction.getName(), transaction);
         endTime = System.currentTimeMillis();
         Assert.assertTrue(endTime - startTime > 2000);
     }
@@ -61,13 +61,13 @@ public abstract class AbstractTransactionDaoTest {
     @Test
     @DirtiesContext
     public void shouldFindTransaction() throws InterruptedException {
-        transactionDao.saveWithCache(transaction);
+        transactionDao.saveWithCache(transaction.getName(), transaction);
         long startTime = System.currentTimeMillis();
         Transaction foundTransaction = transactionDao.findByName(TRANSACTION_NAME);
         long endTime = System.currentTimeMillis();
 
         Assert.assertEquals(TRANSACTION_NAME, foundTransaction.getName());
-        Assert.assertTrue(endTime - startTime > 2000);
+        Assert.assertTrue(endTime - startTime < 2000);
     }
 
     @Test
@@ -79,13 +79,13 @@ public abstract class AbstractTransactionDaoTest {
 
     @Test
     public void shouldCacheEvictWorkProperly() throws InterruptedException {
-        transactionDao.saveWithCache(transaction);
+        transactionDao.saveWithCache(transaction.getName(), transaction);
         long startTime = System.currentTimeMillis();
         Transaction foundTransaction = transactionDao.findByName(TRANSACTION_NAME);
         long endTime = System.currentTimeMillis();
-        Assert.assertTrue(endTime - startTime > 2000);
+        Assert.assertTrue(endTime - startTime < 2000);
 
-        transactionDao.removeWithCache(transaction);
+        transactionDao.clearCache();
 
         startTime = System.currentTimeMillis();
         foundTransaction = transactionDao.findByName(TRANSACTION_NAME);

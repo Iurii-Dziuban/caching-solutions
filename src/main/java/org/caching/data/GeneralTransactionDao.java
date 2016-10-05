@@ -1,14 +1,14 @@
 package org.caching.data;
 
-import org.caching.data.value.Transaction;
+import org.caching.data.value.generated.Transaction;
 /**
  * Created by iurii.dziuban on 27.09.2016.
  */
 public interface GeneralTransactionDao {
 
-    void saveWithCache(Transaction transaction) throws InterruptedException;
+    Transaction saveWithCache(String key, Transaction transaction) throws InterruptedException;
 
-    void saveWithoutCache(Transaction transaction) throws InterruptedException;
+    Transaction saveWithoutCache(String key, Transaction transaction) throws InterruptedException;
 
     Transaction findByName(final String name) throws InterruptedException;
 
@@ -16,4 +16,5 @@ public interface GeneralTransactionDao {
 
     void removeWithoutCache(Transaction transaction);
 
+    void clearCache();
 }

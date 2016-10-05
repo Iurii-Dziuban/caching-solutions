@@ -1,12 +1,10 @@
-package org.caching.data.spring_dao;
+package org.caching.data.jboss_dao;
 
 import org.caching.data.GeneralTransactionDao;
 import org.caching.data.value.generated.Transaction;
+import org.jboss.cache.Cache;
+import org.jboss.cache.Fqn;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.CacheManager;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.CachePut;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -16,20 +14,20 @@ import java.util.List;
  * Created by iurii.dziuban on 06.09.2016.
  */
 @Repository
-public class TransactionDao implements GeneralTransactionDao{
-
-    @Autowired
-    private CacheManager cacheManager;
+public class TransactionJbossDao implements GeneralTransactionDao {
 
     private final List<Transaction> transactions;
 
-    public TransactionDao() {
+    @Autowired
+    private Cache<String, Transaction> jbossCache;
+
+    public TransactionJbossDao() {
         this.transactions = new ArrayList<Transaction>();
     }
 
-    @CachePut(cacheNames = "transactions", key = "#transaction.name")
     @Override
     public Transaction saveWithCache(String key, Transaction transaction) throws InterruptedException {
+        jbossCache.put(new Fqn<Object>("jbosstransactions"), transaction.getName(), transaction);
         saveWithoutCache(key, transaction);
         return transaction;
     }
@@ -42,9 +40,13 @@ public class TransactionDao implements GeneralTransactionDao{
         return transaction;
     }
 
-    @Cacheable(cacheNames = "transactions", key = "#name")
     @Override
     public Transaction findByName(final String name) throws InterruptedException {
+        Transaction cachedValue = jbossCache.get(new Fqn<Object>("jbosstransactions"), name);
+        if (cachedValue != null) {
+            return cachedValue;
+        }
+
         // Emulate time for searching
         Thread.sleep(4000);
         for (Transaction transaction : transactions) {
@@ -55,9 +57,10 @@ public class TransactionDao implements GeneralTransactionDao{
         return null;
     }
 
-    @CacheEvict(cacheNames = "transactions", key = "#transaction.name", beforeInvocation = true)
     @Override
     public void removeWithCache(Transaction transaction) {
+        jbossCache.evict(new Fqn<Object>("jbosstransactions"),true);
+
         removeWithoutCache(transaction);
     }
 
@@ -68,6 +71,6 @@ public class TransactionDao implements GeneralTransactionDao{
 
     @Override
     public void clearCache() {
-        cacheManager.getCache("transactions").clear();
+        jbossCache.removeNode(new Fqn<Object>("jbosstransactions"));
     }
 }

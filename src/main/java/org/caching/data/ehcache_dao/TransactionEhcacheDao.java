@@ -2,7 +2,7 @@ package org.caching.data.ehcache_dao;
 
 import net.sf.ehcache.CacheManager;
 import org.caching.data.GeneralTransactionDao;
-import org.caching.data.value.Transaction;
+import org.caching.data.value.generated.Transaction;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
@@ -23,20 +23,21 @@ public class TransactionEhcacheDao implements GeneralTransactionDao {
         this.transactions = new ArrayList<Transaction>();
     }
 
-    @CachePut(cacheNames = "ehtransactions", key = "#transaction.id")
+    @CachePut(cacheNames = "ehtransactions", key = "#transaction.name")
     @Override
-    public void saveWithCache(Transaction transaction) throws InterruptedException {
-        saveWithoutCache(transaction);
+    public Transaction saveWithCache(String key, Transaction transaction) throws InterruptedException {
+        return saveWithoutCache(key, transaction);
     }
 
     @Override
-    public void saveWithoutCache(Transaction transaction) throws InterruptedException {
+    public Transaction saveWithoutCache(String key, Transaction transaction) throws InterruptedException {
         // Emulate time for saving
         Thread.sleep(4000);
         transactions.add(transaction);
+        return transaction;
     }
 
-    @Cacheable("ehtransactions")
+    @Cacheable(value = "ehtransactions", key ="#name")
     @Override
     public Transaction findByName(final String name) throws InterruptedException {
         // Emulate time for searching
@@ -49,15 +50,19 @@ public class TransactionEhcacheDao implements GeneralTransactionDao {
         return null;
     }
 
-    @CacheEvict(cacheNames = "ehtransactions", key = "#transaction.id", beforeInvocation = true)
+    @CacheEvict(cacheNames = "ehtransactions", key = "#transaction.name", beforeInvocation = true)
     @Override
     public void removeWithCache(Transaction transaction) {
-        CacheManager.getInstance().clearAll();
         removeWithoutCache(transaction);
     }
 
     @Override
     public void removeWithoutCache(Transaction transaction) {
         transactions.remove(transaction);
+    }
+
+    @Override
+    public void clearCache() {
+        CacheManager.getInstance().clearAll();
     }
 }

@@ -4,6 +4,7 @@ import net.sf.ehcache.CacheManager;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cache.ehcache.EhCacheCacheManager;
 import org.springframework.cache.ehcache.EhCacheManagerFactoryBean;
+import org.springframework.context.annotation.AdviceMode;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -14,13 +15,12 @@ import org.springframework.core.io.ClassPathResource;
  */
 @Configuration
 @ComponentScan(basePackages = {"org.caching.data.value", "org.caching.data.ehcache_dao"})
-@EnableCaching
+@EnableCaching(mode = AdviceMode.PROXY)
 public class EhCacheApplicationContext {
 
     @Bean
     public CacheManager ehcacheManager() {
-        CacheManager cacheManager = new CacheManager();
-        return cacheManager;
+        return CacheManager.create();
     }
 
     @Bean

@@ -1,37 +1,31 @@
-package org.caching.data.spring_dao;
+package org.caching.data.jcache_dao;
 
+import net.sf.ehcache.CacheManager;
 import org.caching.data.GeneralTransactionDao;
 import org.caching.data.value.generated.Transaction;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.CacheManager;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.CachePut;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Repository;
 
+import javax.cache.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by iurii.dziuban on 06.09.2016.
  */
+@CacheDefaults(cacheName = "jcachetransactions")
 @Repository
-public class TransactionDao implements GeneralTransactionDao{
-
-    @Autowired
-    private CacheManager cacheManager;
+public class TransactionJCacheDao implements GeneralTransactionDao {
 
     private final List<Transaction> transactions;
 
-    public TransactionDao() {
+    public TransactionJCacheDao() {
         this.transactions = new ArrayList<Transaction>();
     }
 
-    @CachePut(cacheNames = "transactions", key = "#transaction.name")
+    @CachePut
     @Override
-    public Transaction saveWithCache(String key, Transaction transaction) throws InterruptedException {
-        saveWithoutCache(key, transaction);
-        return transaction;
+    public Transaction saveWithCache(@CacheKey String key, @CacheValue Transaction transaction) throws InterruptedException {
+        return saveWithoutCache(key, transaction);
     }
 
     @Override
@@ -42,9 +36,9 @@ public class TransactionDao implements GeneralTransactionDao{
         return transaction;
     }
 
-    @Cacheable(cacheNames = "transactions", key = "#name")
+    @CacheResult
     @Override
-    public Transaction findByName(final String name) throws InterruptedException {
+    public Transaction findByName(@CacheKey final String name) throws InterruptedException {
         // Emulate time for searching
         Thread.sleep(4000);
         for (Transaction transaction : transactions) {
@@ -55,7 +49,7 @@ public class TransactionDao implements GeneralTransactionDao{
         return null;
     }
 
-    @CacheEvict(cacheNames = "transactions", key = "#transaction.name", beforeInvocation = true)
+    @CacheRemove(afterInvocation = true)
     @Override
     public void removeWithCache(Transaction transaction) {
         removeWithoutCache(transaction);
@@ -66,8 +60,9 @@ public class TransactionDao implements GeneralTransactionDao{
         transactions.remove(transaction);
     }
 
+    @CacheRemoveAll
     @Override
     public void clearCache() {
-        cacheManager.getCache("transactions").clear();
+        CacheManager.getInstance().clearAll();
     }
 }

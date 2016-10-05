@@ -1,7 +1,40 @@
+<!-- Important! Ehcache configuration examples: http://www.ehcache.org/ehcache.xml -->
 <ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-             xsi:noNamespaceSchemaLocation="ehcache.xsd"
-             updateCheck="false" monitoring="autodetect"
-             dynamicConfig="true">
-    <cache name="transactions" maxBytesLocalHeap="50m" timeToLiveSeconds="100"/>
-    <cache name="ehtransactions" maxBytesLocalHeap="50m" timeToLiveSeconds="100"/>
+         xsi:noNamespaceSchemaLocation="ehcache.xsd"
+         updateCheck="true"
+         monitoring="autodetect"
+         dynamicConfig="true">
+
+    <diskStore path="java.io.tmpdir" />
+
+    <cache name="transactions"
+           maxEntriesLocalHeap="100"
+           maxEntriesLocalDisk="10"
+           eternal="false"
+           diskSpoolBufferSizeMB="20"
+           timeToIdleSeconds="300" timeToLiveSeconds="600"
+           memoryStoreEvictionPolicy="LFU"
+           transactionalMode="off">
+        <persistence strategy="localTempSwap" />
+    </cache>
+    <cache name="ehtransactions"
+           maxEntriesLocalHeap="100"
+           maxEntriesLocalDisk="10"
+           eternal="false"
+           diskSpoolBufferSizeMB="20"
+           timeToIdleSeconds="300" timeToLiveSeconds="600"
+           memoryStoreEvictionPolicy="LFU"
+           transactionalMode="off">
+        <persistence strategy="localTempSwap" />
+    </cache>
+    <cache name="jcachetransactions"
+           maxEntriesLocalHeap="100"
+           maxEntriesLocalDisk="10"
+           eternal="false"
+           diskSpoolBufferSizeMB="20"
+           timeToIdleSeconds="300" timeToLiveSeconds="600"
+           memoryStoreEvictionPolicy="LFU"
+           transactionalMode="off">
+        <persistence strategy="localTempSwap" />
+    </cache>
 </ehcache>
