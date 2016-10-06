@@ -1,4 +1,12 @@
 # Caching-solutions
+[![Open Source Love](https://badges.frapsoft.com/os/v2/open-source.svg?v=103)](https://github.com/ellerbrock/open-source-badge/)
+
+[![Build Status](https://travis-ci.org/Iurii-Dziuban/caching-solutions.svg?branch=master)](https://travis-ci.org/Iurii-Dziuban/caching-solutions)
+[![Coverage Status](https://coveralls.io/repos/github/Iurii-Dziuban/caching-solutions/badge.svg?branch=master)](https://coveralls.io/github/Iurii-Dziuban/caching-solutions?branch=master)
+[![Issue Count](https://codeclimate.com/github/Iurii-Dziuban/caching-solutions/badges/issue_count.svg)](https://codeclimate.com/github/Iurii-Dziuban/caching-solutions)
+[![Dependency Status](https://www.versioneye.com/user/projects/57f636de823b88004e06acce/badge.svg?style=flat-square)](https://www.versioneye.com/user/projects/57f636de823b88004e06acce)
+[![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/Iurii-Dziuban/caching-solutions/issues)
+
 A project that shows caching solution approaches with code generation
 [Lombok](https://projectlombok.org/) and [AutoValue](https://github.com/google/auto/blob/master/value/userguide/index.md)
 
