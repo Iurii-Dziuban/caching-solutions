@@ -84,6 +84,12 @@
             <version>2.0.0.GA</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.hazelcast</groupId>
+            <artifactId>hazelcast</artifactId>
+            <version>3.7.3</version>
+        </dependency>
+
         <!-- ehcache jcache implementation -->
         <dependency>
             <groupId>org.ehcache</groupId>
@@ -93,7 +99,7 @@
         <dependency>
             <groupId>javax.cache</groupId>
             <artifactId>cache-api</artifactId>
-            <version>1.0.0-PFD</version>
+            <version>1.0.0</version>
         </dependency>
 
         <!-- aspectJ aspects spring support -->
