@@ -12,7 +12,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <org.springframework.version>4.3.4.RELEASE</org.springframework.version>
+        <org.springframework.version>4.3.5.RELEASE</org.springframework.version>
     </properties>
 
     <scm>
@@ -160,7 +160,7 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-log4j12</artifactId>
-            <version>1.7.21</version>
+            <version>1.7.22</version>
         </dependency>
 
         <!-- Junit -->
