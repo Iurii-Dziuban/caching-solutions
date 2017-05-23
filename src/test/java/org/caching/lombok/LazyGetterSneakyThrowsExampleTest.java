@@ -16,7 +16,7 @@ public class LazyGetterSneakyThrowsExampleTest {
         String cached = example.getCached();
         long endTime = System.currentTimeMillis();
 
-        Assert.assertTrue(endTime - startTime > 10000);
+        Assert.assertTrue(endTime - startTime > 5000);
         Assert.assertEquals("cached", cached);
 
         // check cached
@@ -25,7 +25,7 @@ public class LazyGetterSneakyThrowsExampleTest {
         cached = example.getCached();
         endTime = System.currentTimeMillis();
 
-        Assert.assertTrue(endTime - startTime < 10000);
+        Assert.assertTrue(endTime - startTime < 5000);
         Assert.assertEquals("cached", cached);
     }
 }
