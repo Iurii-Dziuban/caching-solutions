@@ -1,6 +1,5 @@
 package org.caching;
 
-import org.caching.context.EhCacheApplicationContext;
 import org.caching.context.JCacheEhCacheContext;
 import org.springframework.test.context.ContextConfiguration;
 

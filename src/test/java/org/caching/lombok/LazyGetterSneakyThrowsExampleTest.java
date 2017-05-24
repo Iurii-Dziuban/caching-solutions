@@ -2,8 +2,9 @@ package org.caching.lombok;
 
 import lombok.val;
 import org.caching.data.lombok.LazyGetterSneakyThrowsExample;
-import org.junit.Assert;
 import org.junit.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Created by iurii.dziuban on 26.09.2016.
@@ -16,8 +17,8 @@ public class LazyGetterSneakyThrowsExampleTest {
         String cached = example.getCached();
         long endTime = System.currentTimeMillis();
 
-        Assert.assertTrue(endTime - startTime > 5000);
-        Assert.assertEquals("cached", cached);
+        assertThat(endTime - startTime > 5000);
+        assertThat(cached).isEqualTo("cached");
 
         // check cached
 
@@ -25,7 +26,7 @@ public class LazyGetterSneakyThrowsExampleTest {
         cached = example.getCached();
         endTime = System.currentTimeMillis();
 
-        Assert.assertTrue(endTime - startTime < 5000);
-        Assert.assertEquals("cached", cached);
+        assertThat(endTime - startTime < 5000).isTrue();
+        assertThat(cached).isEqualTo("cached");
     }
 }

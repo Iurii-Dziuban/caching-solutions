@@ -3,7 +3,6 @@ package org.caching.data.lombok;
 import lombok.Getter;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
-import lombok.val;
 
 /**
  * Created by iurii.dziuban on 26.09.2016.

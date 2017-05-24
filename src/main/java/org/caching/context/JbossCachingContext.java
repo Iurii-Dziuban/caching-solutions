@@ -5,7 +5,6 @@ import org.jboss.cache.Cache;
 import org.jboss.cache.DefaultCacheFactory;
 import org.jboss.cache.config.EvictionConfig;
 import org.jboss.cache.transaction.JBossTransactionManagerLookup;
-import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;

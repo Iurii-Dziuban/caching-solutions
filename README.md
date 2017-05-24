@@ -9,6 +9,10 @@
 A project that shows caching solution approaches with code generation
 [Lombok](https://projectlombok.org/) and [AutoValue](https://github.com/google/auto/blob/master/value/userguide/index.md)
 
+# Checks
+
+Jacoco code coverage, pmd, checkstyle, enforcer, findbugs
+
 #Structure
 - `org.caching.autovalue` contains example with builder, equals, hashcode, getters, setters example without much flexibility
 - `org.caching.lombok` contains examples with Lombok features. In IDE plugins for Lombok are needed.

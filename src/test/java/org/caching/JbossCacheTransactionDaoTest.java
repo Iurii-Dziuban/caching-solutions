@@ -1,8 +1,6 @@
 package org.caching;
 
 import org.caching.context.JbossCachingContext;
-import org.caching.context.SpringCachingContext;
-import org.jboss.cache.Cache;
 import org.springframework.test.context.ContextConfiguration;
 
 /**

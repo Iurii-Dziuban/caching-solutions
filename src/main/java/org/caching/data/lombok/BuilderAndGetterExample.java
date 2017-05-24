@@ -1,6 +1,11 @@
 package org.caching.data.lombok;
 
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Singular;
+import lombok.ToString;
 
 import java.util.Set;
 

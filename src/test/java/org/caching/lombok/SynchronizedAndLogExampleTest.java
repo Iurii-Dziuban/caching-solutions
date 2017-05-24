@@ -3,7 +3,7 @@ package org.caching.lombok;
 import org.caching.data.lombok.SynchronizedAndLogExample;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Created by iurii.dziuban on 26.09.2016.
@@ -13,6 +13,6 @@ public class SynchronizedAndLogExampleTest {
     @Test
     public void test() {
         SynchronizedAndLogExample synchronizedExample = new SynchronizedAndLogExample();
-        assertEquals("readLock", synchronizedExample.print());
+        assertThat(synchronizedExample.print()).isEqualTo("readLock");
     }
 }

@@ -4,7 +4,13 @@ import org.caching.data.GeneralTransactionDao;
 import org.caching.data.value.generated.Transaction;
 import org.springframework.stereotype.Repository;
 
-import javax.cache.annotation.*;
+import javax.cache.annotation.CacheDefaults;
+import javax.cache.annotation.CacheKey;
+import javax.cache.annotation.CachePut;
+import javax.cache.annotation.CacheRemove;
+import javax.cache.annotation.CacheRemoveAll;
+import javax.cache.annotation.CacheResult;
+import javax.cache.annotation.CacheValue;
 import java.util.ArrayList;
 import java.util.List;
 
