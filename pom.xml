@@ -106,7 +106,7 @@
         <dependency>
             <groupId>com.hazelcast</groupId>
             <artifactId>hazelcast</artifactId>
-            <version>3.8.2</version>
+            <version>3.8.3</version>
         </dependency>
 
         <!-- ehcache jcache implementation -->
@@ -168,7 +168,7 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.16.16</version>
+            <version>1.16.18</version>
             <scope>provided</scope>
         </dependency>
 
