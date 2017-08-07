@@ -1,6 +1,7 @@
 package org.caching.data;
 
-import org.caching.data.value.generated.Transaction;
+import org.caching.data.lombok.Transaction;
+
 /**
  * Created by iurii.dziuban on 27.09.2016.
  */
@@ -14,7 +15,11 @@ public interface GeneralTransactionDao {
 
     void removeWithCache(Transaction transaction);
 
+    void removeWithCache(String name);
+
     void removeWithoutCache(Transaction transaction);
+
+    void removeWithoutCache(String name);
 
     void clearCache();
 }

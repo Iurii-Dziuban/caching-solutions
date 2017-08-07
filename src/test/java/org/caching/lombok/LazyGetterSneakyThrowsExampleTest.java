@@ -1,7 +1,6 @@
 package org.caching.lombok;
 
 import lombok.val;
-import org.caching.data.lombok.LazyGetterSneakyThrowsExample;
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;

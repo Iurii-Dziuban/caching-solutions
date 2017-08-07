@@ -16,8 +16,8 @@
 
         <java.version>1.8</java.version>
 
-        <jacoco.ratio.instruction>0.00</jacoco.ratio.instruction>
-        <jacoco.ratio.bundle>0.00</jacoco.ratio.bundle>
+        <jacoco.ratio.instruction>1.00</jacoco.ratio.instruction>
+        <jacoco.ratio.bundle>1.00</jacoco.ratio.bundle>
     </properties>
 
     <scm>
@@ -133,37 +133,6 @@
             <version>1.0.0</version>
         </dependency>
 
-        <!-- aspectJ aspects spring support -->
-        <!-- <dependency>
-            <groupId>org.aspectj</groupId>
-            <artifactId>aspectjweaver</artifactId>
-            <version>1.8.9</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.aspectj</groupId>
-            <artifactId>aspectjrt</artifactId>
-            <version>1.8.9</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-aop</artifactId>
-            <version>${org.springframework.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-aspects</artifactId>
-            <version>${org.springframework.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-tx</artifactId>
-            <version>${org.springframework.version}</version>
-        </dependency> -->
-
         <!-- Lombok for code generation and simplification of source -->
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -242,12 +211,9 @@
                         <ignores>
                             <ignore>org.caching.data.autovalue.Transaction</ignore>
                             <ignore>org.caching.data.autovalue.AutoValue_Transaction</ignore>
-                            <ignore>org.caching.data.lombok.LazyGetterSneakyThrowsExample</ignore>
-                            <ignore>org.caching.autovalue.AutoValueTest</ignore>
                         </ignores>
                         <excludes>
                             <exclude>org/caching/data/autovalue/**.class</exclude>
-                            <exclude>org/caching/data/lombok/LazyGetterSneakyThrowsExample*</exclude>
                         </excludes>
                     </instrumentation>
                 </configuration>
@@ -285,6 +251,14 @@
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <version>0.7.9</version>
                 <configuration>
+                    <excludes>
+                        <exclude>
+                            org/caching/data/autovalue/**
+                        </exclude>
+                        <exclude>
+                            org/caching/data/lombok/Transaction*
+                        </exclude>
+                    </excludes>
                     <rules>
                         <rule>
                             <element>BUNDLE</element>
@@ -439,46 +413,6 @@
                     </execution>
                 </executions>
             </plugin>
-
-            <!-- <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>aspectj-maven-plugin</artifactId>
-                <version>1.4</version>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.aspectj</groupId>
-                        <artifactId>aspectjrt</artifactId>
-                        <version>1.8.9</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>org.aspectj</groupId>
-                        <artifactId>aspectjtools</artifactId>
-                        <version>1.8.9</version>
-                    </dependency>
-                </dependencies>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>compile</goal>
-                            <goal>test-compile</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <complianceLevel>1.8</complianceLevel>
-                    <outxml>true</outxml>
-                    <showWeaveInfo>true</showWeaveInfo>
-                    <verbose>true</verbose>
-                    <aspectLibraries>
-                        <aspectLibrary>
-                            <groupId>org.springframework</groupId>
-                            <artifactId>spring-aspects</artifactId>
-                        </aspectLibrary>
-                    </aspectLibraries>
-                    <source>1.8</source>
-                    <target>1.8</target>
-                </configuration>
-            </plugin>-->
         </plugins>
 
     </build>

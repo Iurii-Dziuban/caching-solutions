@@ -1,6 +1,5 @@
 package org.caching.lombok;
 
-import org.caching.data.lombok.SynchronizedAndLogExample;
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;

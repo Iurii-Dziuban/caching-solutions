@@ -1,6 +1,5 @@
 package org.caching.lombok;
 
-import org.caching.data.lombok.BuilderAndGetterExample;
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -13,11 +12,11 @@ public class BuilderAndGetterExampleTest {
     @Test
     public void test(){
         BuilderAndGetterExample.BuilderAndGetterExampleBuilder builder = BuilderAndGetterExample.builder();
-        BuilderAndGetterExample iurii = builder.name("Iurii").age(26).occupation("Java Developer").occupation("Traveler").build();
-        assertThat(iurii.getName()).isEqualTo("Iurii");
-        assertThat(iurii.getAge()).isEqualTo(26);
-        assertThat(iurii.getOccupations()).hasSize(2);
-        assertThat(iurii.getOccupations()).contains("Java Developer");
-        assertThat(iurii.getOccupations()).contains("Traveler");
+        BuilderAndGetterExample person = builder.name("Iurii").age(26).occupation("Java Developer").occupation("Traveler").build();
+        assertThat(person.getName()).isEqualTo("Iurii");
+        assertThat(person.getAge()).isEqualTo(26);
+        assertThat(person.getOccupations()).hasSize(2);
+        assertThat(person.getOccupations()).contains("Java Developer");
+        assertThat(person.getOccupations()).contains("Traveler");
     }
 }

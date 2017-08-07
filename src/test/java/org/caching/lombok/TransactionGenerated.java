@@ -1,4 +1,4 @@
-package org.caching.data.value.generated;
+package org.caching.lombok;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -6,11 +6,11 @@ import java.util.Objects;
 /**
  * Created by iurii.dziuban on 04.10.2016.
  */
-public class Transaction implements Serializable{
+public class TransactionGenerated implements Serializable{
     private Integer id;
     private String name;
 
-    public Transaction() {
+    public TransactionGenerated() {
     }
 
     public Integer getId() {
@@ -38,6 +38,6 @@ public class Transaction implements Serializable{
     }
 
     public String toString() {
-        return "Transaction(id=" + this.getId() + ", name=" + this.getName() + ")";
+        return "TransactionGenerated(id=" + this.getId() + ", name=" + this.getName() + ")";
     }
 }

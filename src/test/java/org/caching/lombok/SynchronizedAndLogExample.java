@@ -1,4 +1,4 @@
-package org.caching.data.lombok;
+package org.caching.lombok;
 
 import lombok.Synchronized;
 import lombok.extern.slf4j.Slf4j;

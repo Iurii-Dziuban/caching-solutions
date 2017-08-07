@@ -1,4 +1,4 @@
-package org.caching.data.lombok;
+package org.caching.lombok;
 
 import lombok.Getter;
 import lombok.SneakyThrows;
