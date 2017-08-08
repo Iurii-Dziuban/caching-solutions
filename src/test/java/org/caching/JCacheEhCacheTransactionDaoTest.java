@@ -11,7 +11,7 @@ import javax.inject.Inject;
  * Created by iurii.dziuban on 06.09.2016.
  */
 @ContextConfiguration(classes = JCacheEhCacheContext.class)
-public class JCacheTransactionDaoTest extends AbstractTransactionDaoTest{
+public class JCacheEhCacheTransactionDaoTest extends AbstractTransactionDaoTest{
 
     @Inject
     private CacheManager cacheManager;
