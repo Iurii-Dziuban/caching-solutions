@@ -31,7 +31,7 @@ Main features: getters, setters, equals, hashcode, builder, lazy getter, sneakyT
 - `SpringCacheTransactionDaoTest` test for spring simple cache usage
 Tests show saving to cache / without cache and reading the values. With Cache look ups are quicker. Evict does nothing, cause small data.
 Clearing cache shows that cache is not hit in this case.
-
+- `GuavaCacheTest` test Guava abilities to cache
 # Building project
 `mvn clean package`
 
@@ -44,6 +44,7 @@ Libraries:
 - ehcache
 - jboss cache
 - jcache
+- guava
 - spring
 - lombok
 - autovalue

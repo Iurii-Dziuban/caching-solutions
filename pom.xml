@@ -133,6 +133,12 @@
             <version>1.0.0</version>
         </dependency>
 
+        <!-- Guava for caching -->
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>23.0</version>
+        </dependency>
         <!-- Lombok for code generation and simplification of source -->
         <dependency>
             <groupId>org.projectlombok</groupId>
