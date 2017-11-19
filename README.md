@@ -3,7 +3,7 @@
 
 [![Build Status](https://travis-ci.org/Iurii-Dziuban/caching-solutions.svg?branch=master)](https://travis-ci.org/Iurii-Dziuban/caching-solutions)
 [![Coverage Status](https://coveralls.io/repos/github/Iurii-Dziuban/caching-solutions/badge.svg?branch=master)](https://coveralls.io/github/Iurii-Dziuban/caching-solutions?branch=master)
-[![Dependency Status](https://www.versioneye.com/user/projects/57f636de823b88004e06acce/badge.svg?style=flat-square)](https://www.versioneye.com/user/projects/57f636de823b88004e06acce)
+[![Dependency Status](https://www.versioneye.com/user/projects/5a11b2530fb24f2a3bd25760/badge.svg?style=flat-square)](https://www.versioneye.com/user/projects/5a11b2530fb24f2a3bd25760)
 [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/Iurii-Dziuban/caching-solutions/issues)
 
 A project that shows caching solution approaches with code generation
