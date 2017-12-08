@@ -12,7 +12,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <org.springframework.version>5.0.0.RELEASE</org.springframework.version>
+        <org.springframework.version>5.0.2.RELEASE</org.springframework.version>
 
         <java.version>1.8</java.version>
 
@@ -106,7 +106,7 @@
         <dependency>
             <groupId>com.hazelcast</groupId>
             <artifactId>hazelcast</artifactId>
-            <version>3.8.6</version>
+            <version>3.9.1</version>
         </dependency>
 
         <!-- ehcache jcache implementation -->
@@ -340,12 +340,12 @@
                     <dependency>
                         <groupId>com.puppycrawl.tools</groupId>
                         <artifactId>checkstyle</artifactId>
-                        <version>8.3</version>
+                        <version>8.5</version>
                     </dependency>
                     <dependency>
                         <groupId>com.github.sevntu-checkstyle</groupId>
                         <artifactId>sevntu-checkstyle-maven-plugin</artifactId>
-                        <version>1.24.2</version>
+                        <version>1.25.0</version>
                     </dependency>
                 </dependencies>
                 <executions>
