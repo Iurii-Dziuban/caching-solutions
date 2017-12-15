@@ -14,13 +14,13 @@ import org.springframework.core.io.ClassPathResource;
  * Created by iurii.dziuban on 06.09.2016.
  */
 @Configuration
-@ComponentScan(basePackages = {"org.caching.data.value", "org.caching.data.ehcache_dao"})
+@ComponentScan(basePackages = {"org.caching.data.value", "org.caching.data.ehcache2_dao"})
 @EnableCaching(mode = AdviceMode.PROXY)
-public class EhCacheApplicationContext {
+public class EhCache2ApplicationContext {
 
     @Bean
     public CacheManager ehcacheManager() {
-        return CacheManager.create();
+        return CacheManager.create(getClass().getClassLoader().getResourceAsStream("ehcache2.xml"));
     }
 
     @Bean
@@ -31,7 +31,7 @@ public class EhCacheApplicationContext {
     @Bean
     public EhCacheManagerFactoryBean ehcache() {
         EhCacheManagerFactoryBean ehCacheFactoryBean = new EhCacheManagerFactoryBean();
-        ehCacheFactoryBean.setConfigLocation(new ClassPathResource("ehcache.xml"));
+        ehCacheFactoryBean.setConfigLocation(new ClassPathResource("ehcache2.xml"));
         ehCacheFactoryBean.setShared(true);
         return ehCacheFactoryBean;
     }

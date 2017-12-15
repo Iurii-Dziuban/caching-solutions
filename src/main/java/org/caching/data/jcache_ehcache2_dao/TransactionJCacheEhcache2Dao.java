@@ -1,4 +1,4 @@
-package org.caching.data.jcache_dao;
+package org.caching.data.jcache_ehcache2_dao;
 
 import net.sf.ehcache.CacheManager;
 import org.caching.data.GeneralTransactionDao;
@@ -20,12 +20,12 @@ import java.util.Map;
  */
 @CacheDefaults(cacheName = "jcachetransactions")
 @Repository
-public class TransactionJCacheDao implements GeneralTransactionDao {
+public class TransactionJCacheEhcache2Dao implements GeneralTransactionDao {
 
     private static final int MILLISECONDS_WAIT = 4000;
     private final Map<String, Transaction> transactions;
 
-    public TransactionJCacheDao() {
+    public TransactionJCacheEhcache2Dao() {
         this.transactions = new HashMap<>();
     }
 

@@ -1,33 +1,38 @@
-package org.caching.data.ehcache_dao;
+package org.caching.data.jcache_ehcache3_dao;
 
-import net.sf.ehcache.CacheManager;
 import org.caching.data.GeneralTransactionDao;
 import org.caching.data.lombok.Transaction;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.CachePut;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Repository;
 
+import javax.cache.annotation.CacheDefaults;
+import javax.cache.annotation.CacheKey;
+import javax.cache.annotation.CachePut;
+import javax.cache.annotation.CacheRemove;
+import javax.cache.annotation.CacheRemoveAll;
+import javax.cache.annotation.CacheResult;
+import javax.cache.annotation.CacheValue;
 import java.util.HashMap;
 import java.util.Map;
 
 /**
  * Created by iurii.dziuban on 06.09.2016.
  */
+@CacheDefaults(cacheName = "jcache3transactions")
 @Repository
-public class TransactionEhcacheDao implements GeneralTransactionDao {
+public class TransactionJCacheEhCache3Dao implements GeneralTransactionDao {
 
     private static final int MILLISECONDS_WAIT = 4000;
     private final Map<String, Transaction> transactions;
 
-    public TransactionEhcacheDao() {
+    public TransactionJCacheEhCache3Dao() {
         this.transactions = new HashMap<>();
     }
 
-    @CachePut(cacheNames = "ehtransactions", key = "#transaction.name")
+    @CachePut
     @Override
-    public Transaction saveWithCache(String key, Transaction transaction) throws InterruptedException {
-        return saveWithoutCache(transaction.getName(), transaction);
+    public Transaction saveWithCache(@CacheKey String key, @CacheValue Transaction transaction)
+            throws InterruptedException {
+        return saveWithoutCache(key, transaction);
     }
 
     @Override
@@ -38,37 +43,36 @@ public class TransactionEhcacheDao implements GeneralTransactionDao {
         return transaction;
     }
 
-    @Cacheable(cacheNames = "ehtransactions", key ="#name")
+    @CacheResult
     @Override
-    public Transaction findByName(final String name) throws InterruptedException {
+    public Transaction findByName(@CacheKey final String name) throws InterruptedException {
         // Emulate time for searching
         Thread.sleep(MILLISECONDS_WAIT);
         return transactions.get(name);
     }
 
-    @CacheEvict(cacheNames = "ehtransactions", key = "#transaction.name", beforeInvocation = true)
+    @CacheRemove(afterInvocation = false)
     @Override
     public void removeWithCache(Transaction transaction) {
-        removeWithoutCache(transaction);
     }
 
+    @CacheRemove(afterInvocation = false)
     @Override
-    public void removeWithCache(String name) {
-
+    public void removeWithCache(@CacheKey final String name) {
+        removeWithoutCache(name);
     }
 
     @Override
     public void removeWithoutCache(Transaction transaction) {
-        transactions.remove(transaction.getName());
     }
 
     @Override
     public void removeWithoutCache(String name) {
-
+        transactions.remove(name);
     }
 
+    @CacheRemoveAll(cacheName = "jcache3transactions")
     @Override
     public void clearCache() {
-        CacheManager.getInstance().clearAll();
     }
 }

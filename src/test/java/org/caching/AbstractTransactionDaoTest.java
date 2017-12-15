@@ -76,6 +76,7 @@ public abstract class AbstractTransactionDaoTest {
     @Test
     @DirtiesContext
     public void shouldNotFindTransaction() throws InterruptedException {
+        transactionDao.removeWithCache(TRANSACTION_NAME);
         Transaction foundTransaction = transactionDao.findByName(TRANSACTION_NAME);
         assertThat(foundTransaction).isNull();
     }
@@ -116,7 +117,7 @@ public abstract class AbstractTransactionDaoTest {
     @Test
     @DirtiesContext
     public void shouldRemoveButNotFromCache() throws InterruptedException {
-        transactionDao.saveWithoutCache(transaction.getName(), transaction);
+        transactionDao.saveWithCache(TRANSACTION_NAME, transaction);
         Transaction foundTransaction = transactionDao.findByName(TRANSACTION_NAME);
         assertThat(foundTransaction).isNotNull();
 

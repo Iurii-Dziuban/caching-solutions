@@ -11,18 +11,21 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
+import java.net.URISyntaxException;
+
 /**
  * Created by iurii.dziuban on 04.10.2016.
  */
 @Configuration
-@ComponentScan(basePackages = {"org.caching.data.value", "org.caching.data.jcache_dao"})
+@ComponentScan(basePackages = {"org.caching.data.value", "org.caching.data.jcache_ehcache2_dao"})
 @EnableCaching(proxyTargetClass = true)
-public class JCacheEhCacheContext {
+public class JCacheEhCache2Context {
 
     @Bean
-    public CacheManager cacheManager(net.sf.ehcache.CacheManager jcache,JCacheCachingProvider provider) {
+    public CacheManager cacheManager(net.sf.ehcache.CacheManager jcache,JCacheCachingProvider provider) throws URISyntaxException {
         JCacheCacheManager cacheManager = new JCacheCacheManager();
-        cacheManager.setCacheManager(new JCacheManager(provider, jcache, null, null));
+        cacheManager.setCacheManager(new JCacheManager(provider, jcache,
+                getClass().getResource("/ehcache2.xml").toURI(), null));
         return cacheManager;
     }
 
@@ -33,7 +36,7 @@ public class JCacheEhCacheContext {
 
     @Bean
     public net.sf.ehcache.CacheManager jcache() {
-        return net.sf.ehcache.CacheManager.create();
+        return net.sf.ehcache.CacheManager.create(getClass().getClassLoader().getResourceAsStream("ehcache2.xml"));
     }
 
     @Bean

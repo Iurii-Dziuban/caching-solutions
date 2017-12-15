@@ -1,0 +1,22 @@
+<!-- Important! Ehcache configuration examples: http://www.ehcache.org/ehcache.xml -->
+<config xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+        xmlns='http://www.ehcache.org/v3'
+        xsi:schemaLocation="http://www.ehcache.org/v3 http://www.ehcache.org/schema/ehcache-core-3.4.xsd">
+
+    <cache-template name="tiny-cache">
+        <expiry>
+            <ttl unit="minutes">2</ttl>
+        </expiry>
+        <resources>
+            <heap unit="entries">10</heap>
+        </resources>
+    </cache-template>
+
+    <cache alias="basicCache" uses-template="tiny-cache">
+    </cache>
+
+    <cache alias="transactions" uses-template="tiny-cache"/>
+    <cache alias="ehtransactions" uses-template="tiny-cache"/>
+    <cache alias="jcache3transactions" uses-template="tiny-cache"/>
+
+</config>
