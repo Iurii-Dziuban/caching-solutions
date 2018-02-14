@@ -1,10 +1,10 @@
 package org.caching;
 
-import com.google.common.base.Supplier;
 import com.google.common.base.Suppliers;
 import org.junit.Test;
 
 import java.util.concurrent.TimeUnit;
+import java.util.function.Supplier;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
