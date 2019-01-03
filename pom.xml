@@ -154,7 +154,7 @@
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
-            <version>23.0</version>
+            <version>24.1.1-jre</version>
         </dependency>
         <!-- Lombok for code generation and simplification of source -->
         <dependency>
